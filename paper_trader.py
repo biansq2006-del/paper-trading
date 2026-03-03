@@ -344,3 +344,6 @@ if __name__ == '__main__':
     # 4. 保存状态 & 渲染 HTML
     save_portfolio(portfolio)
     generate_dashboard(portfolio, market_data)
+
+    print("✅ 任务完成，正在断开连接并安全退出...")
+    os._exit(0)
