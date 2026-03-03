@@ -95,6 +95,33 @@ def analyze_stock(stock_info, client):
 
         # 核心信号提取 (只取最后一行切片数据，即“当下”的数据)
         last_row = df.iloc[-1]
+        pre_close = df['收盘'].shift(1).iloc[-1] # 昨收价
+        
+        # 智能识别板块涨跌幅限制 (科创688/创业300 为 20%，主板为 10%)
+        limit_threshold = 19.8 if symbol.startswith('688') or symbol.startswith('30') else 9.8
+        pct_change = (last_row['收盘'] / pre_close - 1) * 100
+        
+        # 判定当前是否封死涨停或跌停 (留0.2%的计算容错率)
+        is_limit_up = pct_change >= limit_threshold
+        is_limit_down = pct_change <= -limit_threshold
+        
+        buy_signal = (last_row['MA20_ANGLE'] > SLOPE_THRESHOLD) and cond_trend.iloc[-1] and cond_power.iloc[-1] and cond_vol.iloc[-1] and cond_macd.iloc[-1]
+        
+        # 卖出信号: 跌破10日线 或 (均线向下且跌破20日线)
+        cross_ma10 = (df['收盘'].shift(1).iloc[-1] >= df['MA10'].shift(1).iloc[-1]) and (last_row['收盘'] < last_row['MA10'])
+        ma20_bad = (last_row['MA20_ANGLE'] < 0) and (last_row['收盘'] < last_row['MA20'])
+        sell_signal = cross_ma10 or ma20_bad
+
+        return {
+            'code': symbol,
+            'name': stock_info['name'],
+            'price': last_row['收盘'],
+            'angle': last_row['MA20_ANGLE'],
+            'buy_signal': buy_signal,
+            'sell_signal': sell_signal,
+            'is_limit_up': is_limit_up,     # <--- 新增传出涨停标志
+            'is_limit_down': is_limit_down  # <--- 新增传出跌停标志
+        }
         
         buy_signal = (last_row['MA20_ANGLE'] > SLOPE_THRESHOLD) and cond_trend.iloc[-1] and cond_power.iloc[-1] and cond_vol.iloc[-1] and cond_macd.iloc[-1]
         
@@ -268,10 +295,18 @@ if __name__ == '__main__':
             
         current_data = market_data.get(code)
         if not current_data: continue
-            
+        
         curr_price = current_data['price']
         profit_ratio = (curr_price / info['buy_price']) - 1
         
+        # 【新增】：跌停板锁死拦截
+        if current_data['is_limit_down']:
+            print(f"🔒 跌停锁死: {info['name']} ({code}) 触发卖出，但当前已跌停，没有对手盘，无法平仓！")
+            continue # 直接跳过，今天卖不掉了
+        # 【新增】：跌停板锁死拦截
+        if current_data['is_limit_down']:
+            print(f"🔒 跌停锁死: {info['name']} ({code}) 触发卖出，但当前已跌停，没有对手盘，无法平仓！")
+            continue # 直接跳过，今天卖不掉了
         # 计算已持仓天数 (粗略按日历天算，如果在周末运行不会有问题)
         days_held = (datetime.date.today() - datetime.datetime.strptime(info['buy_date'], '%Y-%m-%d').date()).days
         
@@ -309,7 +344,10 @@ if __name__ == '__main__':
         # 防重复：已经在持仓里的不买，刚刚卖出的今天不买接回
         if code in portfolio['holdings'] or code in sold_codes:
             continue
-            
+        # 【新增】：涨停板拒单拦截
+        if stock['is_limit_up']:
+            print(f"🚫 涨停拒单: {stock['name']} ({code}) 满足主升浪，但当前已封死涨停，排队无法成交！")
+            continue # 直接跳过，寻找下一个龙头    
         price = stock['price']
         min_lot = 200 if code.startswith('688') else 100
         
