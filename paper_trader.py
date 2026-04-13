@@ -277,12 +277,12 @@ if __name__ == '__main__':
     stock_list = meta_df.to_dict('records')
 
     # 3. 极速获取全市场最新切片行情
-    client = Quotes.factory(market='std')
+    client = Quotes.factory(market='std', heartbeat=False)
     market_data = {}
     valid_buys = []
     
     print("🔍 正在扫描全市场最新行情与信号...")
-    with ThreadPoolExecutor(max_workers=4) as executor:
+    with ThreadPoolExecutor(max_workers=1) as executor:
         futures = {executor.submit(analyze_stock, stock, client): stock['code'] for stock in stock_list}
         for future in as_completed(futures):
             res = future.result()
