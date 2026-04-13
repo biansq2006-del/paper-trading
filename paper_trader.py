@@ -1,3 +1,4 @@
+#!/usr/local/bin/python3
 import os
 import json
 import time
@@ -251,6 +252,13 @@ def generate_dashboard(portfolio, current_market_data):
 # 🚀 主程序入口 (交易撮合枢纽)
 # ==========================================
 if __name__ == '__main__':
+    import signal
+    def _timeout_handler(signum, frame):
+        import sys
+        print("⚠️ 脚本执行超过5分钟，强制退出", file=sys.stderr)
+        sys.exit(1)
+    signal.signal(signal.SIGALRM, _timeout_handler)
+    signal.alarm(300)  # 5分钟超时
     print("===========================================")
     print("📡 正在启动实盘模拟引擎 (盘中突击版)...")
     print("===========================================")
@@ -269,12 +277,12 @@ if __name__ == '__main__':
     stock_list = meta_df.to_dict('records')
 
     # 3. 极速获取全市场最新切片行情
-    client = Quotes.factory(market='std', multithread=True, heartbeat=True)
+    client = Quotes.factory(market='std')
     market_data = {}
     valid_buys = []
     
     print("🔍 正在扫描全市场最新行情与信号...")
-    with ThreadPoolExecutor(max_workers=1) as executor:
+    with ThreadPoolExecutor(max_workers=4) as executor:
         futures = {executor.submit(analyze_stock, stock, client): stock['code'] for stock in stock_list}
         for future in as_completed(futures):
             res = future.result()
@@ -282,7 +290,7 @@ if __name__ == '__main__':
                 market_data[res['code']] = res
                 if res['buy_signal']:
                     valid_buys.append(res)
-            time.sleep(0.01) # 防封锁
+            
 
     # ==========================
     # 🛑 处理卖出 (严格 T+1 与参数控制)
