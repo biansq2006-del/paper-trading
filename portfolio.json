@@ -1,6 +1,6 @@
 {
     "initial_capital": 1000000.0,
-    "cash": 619713.1675199999,
+    "cash": 419915.2375199999,
     "holdings": {
         "603129": {
             "name": "春风动力",
@@ -8,6 +8,13 @@
             "buy_price": 282.95,
             "buy_date": "2026-07-24",
             "cost": 198116.5
+        },
+        "002415": {
+            "name": "海康威视",
+            "shares": 5400,
+            "buy_price": 36.99,
+            "buy_date": "2026-07-27",
+            "cost": 199797.93
         }
     },
     "history": [
@@ -2666,11 +2673,21 @@
             "shares": 700,
             "fees": 51.5,
             "reason": "主升浪捕捉 (斜率:36.4°)"
+        },
+        {
+            "time": "2026-07-27 15:00:00",
+            "action": "BUY",
+            "code": "002415",
+            "name": "海康威视",
+            "price": 36.99,
+            "shares": 5400,
+            "fees": 51.93,
+            "reason": "主升浪捕捉 (斜率:30.3°)"
         }
     ],
     "_cache_replay": {
-        "last_processed_date": "2026-07-24",
+        "last_processed_date": "2026-07-27",
         "source": "Baostock本地完整日线缓存",
-        "updated_at": "2026-07-24T17:31:26"
+        "updated_at": "2026-07-27T17:59:48"
     }
 }
