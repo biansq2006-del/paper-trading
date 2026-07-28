@@ -1,6 +1,6 @@
 {
     "initial_capital": 1000000.0,
-    "cash": 419915.2375199999,
+    "cash": 220613.4275199999,
     "holdings": {
         "603129": {
             "name": "春风动力",
@@ -15,6 +15,13 @@
             "buy_price": 36.99,
             "buy_date": "2026-07-27",
             "cost": 199797.93
+        },
+        "601398": {
+            "name": "工商银行",
+            "shares": 25000,
+            "buy_price": 7.97,
+            "buy_date": "2026-07-28",
+            "cost": 199301.81
         }
     },
     "history": [
@@ -2683,11 +2690,21 @@
             "shares": 5400,
             "fees": 51.93,
             "reason": "主升浪捕捉 (斜率:30.3°)"
+        },
+        {
+            "time": "2026-07-28 15:00:00",
+            "action": "BUY",
+            "code": "601398",
+            "name": "工商银行",
+            "price": 7.97,
+            "shares": 25000,
+            "fees": 51.81,
+            "reason": "主升浪捕捉 (斜率:31.3°)"
         }
     ],
     "_cache_replay": {
-        "last_processed_date": "2026-07-27",
+        "last_processed_date": "2026-07-28",
         "source": "Baostock本地完整日线缓存",
-        "updated_at": "2026-07-27T17:59:48"
+        "updated_at": "2026-07-28T17:34:10"
     }
 }
