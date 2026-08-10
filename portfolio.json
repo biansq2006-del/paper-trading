@@ -1,6 +1,6 @@
 {
     "initial_capital": 1000000.0,
-    "cash": 1042.8675199999143,
+    "cash": 369.8575199999143,
     "holdings": {
         "600663": {
             "name": "陆家嘴",
@@ -43,6 +43,13 @@
             "buy_price": 34.1,
             "buy_date": "2026-08-05",
             "cost": 6825.07
+        },
+        "601598": {
+            "name": "中国外运",
+            "shares": 100,
+            "buy_price": 6.68,
+            "buy_date": "2026-08-10",
+            "cost": 673.01
         }
     },
     "history": [
@@ -2877,11 +2884,21 @@
             "shares": 200,
             "fees": 5.07,
             "reason": "主升浪捕捉 (斜率:48.0°)"
+        },
+        {
+            "time": "2026-08-10 15:00:00",
+            "action": "BUY",
+            "code": "601598",
+            "name": "中国外运",
+            "price": 6.68,
+            "shares": 100,
+            "fees": 5.01,
+            "reason": "主升浪捕捉 (斜率:47.0°)"
         }
     ],
     "_cache_replay": {
-        "last_processed_date": "2026-08-07",
+        "last_processed_date": "2026-08-10",
         "source": "Baostock本地完整日线缓存",
-        "updated_at": "2026-08-10T10:43:44"
+        "updated_at": "2026-08-10T17:32:26"
     }
 }
