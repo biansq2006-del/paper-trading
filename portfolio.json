@@ -1,14 +1,7 @@
 {
     "initial_capital": 1000000.0,
-    "cash": 416.2575199997227,
+    "cash": 1000.3375199997226,
     "holdings": {
-        "600977": {
-            "name": "中国电影",
-            "shares": 500,
-            "buy_price": 14.78,
-            "buy_date": "2026-10-23",
-            "cost": 7395.07
-        },
         "601857": {
             "name": "中国石油",
             "shares": 3700,
@@ -50,6 +43,13 @@
             "buy_price": 4.9,
             "buy_date": "2026-10-29",
             "cost": 495.0
+        },
+        "603369": {
+            "name": "今世缘",
+            "shares": 200,
+            "buy_price": 34.76,
+            "buy_date": "2026-11-02",
+            "cost": 6957.07
         }
     },
     "history": [
@@ -4490,11 +4490,32 @@
             "shares": 100,
             "fees": 5.0,
             "reason": "主升浪捕捉 (斜率:39.0°)"
+        },
+        {
+            "time": "2026-11-02 15:00:00",
+            "action": "SELL",
+            "code": "600977",
+            "name": "中国电影",
+            "price": 15.1,
+            "shares": 500,
+            "fees": 8.85,
+            "pnl": 146.07999999999993,
+            "reason": "持仓超时 (10天)"
+        },
+        {
+            "time": "2026-11-02 15:00:00",
+            "action": "BUY",
+            "code": "603369",
+            "name": "今世缘",
+            "price": 34.76,
+            "shares": 200,
+            "fees": 5.07,
+            "reason": "主升浪捕捉 (斜率:54.1°)"
         }
     ],
     "_cache_replay": {
-        "last_processed_date": "2026-10-30",
+        "last_processed_date": "2026-11-02",
         "source": "Baostock本地完整日线缓存",
-        "updated_at": "2026-10-30T17:33:24"
+        "updated_at": "2026-11-02T17:33:20"
     }
 }
