@@ -1,14 +1,7 @@
 {
     "initial_capital": 1000000.0,
-    "cash": 232.96751999970002,
+    "cash": 198532.1475199997,
     "holdings": {
-        "300979": {
-            "name": "华利集团",
-            "shares": 4900,
-            "buy_price": 38.55,
-            "buy_date": "2026-10-29",
-            "cost": 188944.11
-        },
         "603369": {
             "name": "今世缘",
             "shares": 200,
@@ -4637,11 +4630,22 @@
             "shares": 600,
             "fees": 15.41,
             "reason": "主升浪捕捉 (斜率:64.4°)"
+        },
+        {
+            "time": "2026-11-06 15:00:00",
+            "action": "SELL",
+            "code": "300979",
+            "name": "华利集团",
+            "price": 40.5,
+            "shares": 4900,
+            "fees": 150.82,
+            "pnl": 9355.070000000007,
+            "reason": "持仓超时 (8天)"
         }
     ],
     "_cache_replay": {
-        "last_processed_date": "2026-11-05",
+        "last_processed_date": "2026-11-06",
         "source": "Baostock本地完整日线缓存",
-        "updated_at": "2026-11-05T17:32:19"
+        "updated_at": "2026-11-06T18:39:04"
     }
 }
